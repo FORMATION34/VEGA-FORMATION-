@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VEGA Formation — Stratégie 2026–2028</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', Arial, sans-serif; background: #f5f4ef; color: #1a1a18; min-height: 100vh; padding: 2rem 1rem; }
+  :root {
+    --vega-blue: #185FA5; --vega-blue-light: #E6F1FB;
+    --vega-teal: #0F6E56; --vega-teal-light: #E1F5EE;
+    --vega-amber: #BA7517; --vega-amber-light: #FAEEDA;
+    --vega-coral: #993C1D; --vega-coral-light: #FAECE7;
+    --vega-purple: #534AB7; --vega-purple-light: #EEEDFE;
+    --vega-green: #3B6D11; --vega-green-light: #EAF3DE;
+    --border: rgba(0,0,0,0.1);
+    --bg-secondary: #edecea;
+    --text-secondary: #5f5e5a;
+  }
+  .wrapper { max-width: 900px; margin: 0 auto; }
+  .doc { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 24px rgba(0,0,0,0.08); }
+
+  .header { background: var(--vega-blue); color: #fff; padding: 2.5rem 2rem 2rem; }
+  .header-tag { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; margin-bottom: 0.4rem; }
+  .header h1 { font-family: 'Syne', Arial, sans-serif; font-size: 28px; font-weight: 800; line-height: 1.2; margin-bottom: 0.3rem; }
+  .header-sub { font-size: 13px; opacity: 0.8; font-weight: 300; }
+  .header-meta { display: flex; gap: 10px; margin-top: 1.2rem; flex-wrap: wrap; }
+  .header-pill { background: rgba(255,255,255,0.15); border: 0.5px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 500; }
+
+  .tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--bg-secondary); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { padding: 0.8rem 1.2rem; font-size: 13px; font-weight: 500; color: var(--text-secondary); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; border-top: none; border-left: none; border-right: none; background: none; font-family: inherit; transition: all 0.2s; }
+  .tab:hover { color: #1a1a18; }
+  .tab.active { color: var(--vega-blue); border-bottom-color: var(--vega-blue); }
+  .tab.green-tab.active { color: var(--vega-green); border-bottom-color: var(--vega-green); }
+  .tab.comm-tab.active { color: var(--vega-coral); border-bottom-color: var(--vega-coral); }
+
+  .panel { display: none; padding: 2rem; }
+  .panel.active { display: block; }
+
+  .section-title { font-family: 'Syne', Arial, sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+  .section-title::before { content: ''; display: block; width: 3px; height: 16px; background: var(--vega-blue); border-radius: 2px; flex-shrink: 0; }
+  .section-title.green::before { background: var(--vega-green); }
+  .section-title.coral::before { background: var(--vega-coral); }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+  .stat-card { background: var(--bg-secondary); border-radius: 8px; padding: 14px 12px; text-align: center; }
+  .stat-num { font-family: 'Syne', Arial, sans-serif; font-size: 28px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .stat-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.3; }
+  .blue { color: var(--vega-blue); } .teal { color: var(--vega-teal); } .amber { color: var(--vega-amber); }
+  .coral { color: var(--vega-coral); } .purple { color: var(--vega-purple); } .green { color: var(--vega-green); }
+
+  .card { background: #fff; border: 0.5px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 500; }
+  .badge-blue { background: var(--vega-blue-light); color: #0C447C; }
+  .badge-teal { background: var(--vega-teal-light); color: #085041; }
+  .badge-amber { background: var(--vega-amber-light); color: #633806; }
+  .badge-coral { background: var(--vega-coral-light); color: #712B13; }
+  .badge-purple { background: var(--vega-purple-light); color: #3C3489; }
+  .badge-green { background: var(--vega-green-light); color: #27500A; }
+
+  .axe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+  .axe-card { border-radius: 12px; padding: 1.1rem; border: 0.5px solid; }
+  .axe-card.blue { background: var(--vega-blue-light); border-color: #B5D4F4; }
+  .axe-card.teal { background: var(--vega-teal-light); border-color: #9FE1CB; }
+  .axe-card.amber { background: var(--vega-amber-light); border-color: #FAC775; }
+  .axe-card.purple { background: var(--vega-purple-light); border-color: #CECBF6; }
+  .axe-num { font-family: 'Syne', Arial, sans-serif; font-size: 32px; font-weight: 800; opacity: 0.2; line-height: 1; margin-bottom: 6px; }
+  .axe-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+  .axe-body { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 1px; background: var(--border); }
+  .tl-item { position: relative; margin-bottom: 1.2rem; }
+  .tl-dot { position: absolute; left: -24px; top: 5px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid; }
+  .tl-dot.blue { background: var(--vega-blue-light); border-color: var(--vega-blue); }
+  .tl-dot.teal { background: var(--vega-teal-light); border-color: var(--vega-teal); }
+  .tl-dot.amber { background: var(--vega-amber-light); border-color: var(--vega-amber); }
+  .tl-date { font-size: 11px; color: var(--text-secondary); margin-bottom: 2px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+  .tl-title { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .tl-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  .sem-card { border-radius: 12px; padding: 1.1rem; border: 0.5px solid; margin-bottom: 1rem; }
+  .sem-loc { font-family: 'Syne', Arial, sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+  .sem-date { font-size: 12px; margin-bottom: 8px; opacity: 0.7; }
+  .sem-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+
+  .int-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+  .int-card { background: var(--bg-secondary); border-radius: 8px; padding: 12px; }
+  .int-type { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 5px; }
+  .int-item { font-size: 12px; padding: 2px 0; }
+
+  .prog-row { margin-bottom: 12px; }
+  .prog-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; color: var(--text-secondary); }
+  .prog-bar { height: 6px; background: var(--bg-secondary); border-radius: 3px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 3px; }
+
+  .cal-grid { display: grid; grid-template-columns: 70px 1fr; gap: 0; border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; }
+  .cal-month { background: var(--bg-secondary); padding: 10px 6px; font-size: 11px; font-weight: 500; text-align: center; color: var(--text-secondary); border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; text-transform: uppercase; letter-spacing: 0.05em; }
+  .cal-events { padding: 8px 10px; border-bottom: 0.5px solid var(--border); display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+  .cal-event { font-size: 11px; padding: 2px 10px; border-radius: 10px; font-weight: 500; white-space: nowrap; }
+  .cal-month:last-child, .cal-events:last-child { border-bottom: none; }
+
+  .checklist { list-style: none; margin-bottom: 1rem; }
+  .checklist li { font-size: 12px; color: var(--text-secondary); padding: 6px 0; border-bottom: 0.5px solid var(--border); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+  .checklist li:last-child { border-bottom: none; }
+  .check-box { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 9px; }
+  .check-box.done { background: var(--vega-teal); border-color: var(--vega-teal); color: #fff; }
+  .check-box.todo { border-color: #ccc; }
+
+  .alert { border-radius: 8px; padding: 10px 14px; font-size: 12px; display: flex; align-items: flex-start; gap: 10px; margin-bottom: 1rem; border: 0.5px solid; }
+  .alert.urgent { background: var(--vega-coral-light); border-color: #F5C4B3; color: #712B13; }
+  .alert.info { background: var(--vega-green-light); border-color: #C0DD97; color: #27500A; }
+  .alert-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .alert-body { line-height: 1.5; }
+  .alert-body strong { font-weight: 500; display: block; margin-bottom: 2px; }
+
+  .project-card { border-radius: 12px; padding: 1.1rem; border: 0.5px solid; margin-bottom: 1rem; }
+
+  .canal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+  .canal-card { border-radius: 12px; padding: 1rem 1.1rem; border: 0.5px solid; }
+  .canal-icon { font-size: 22px; margin-bottom: 6px; }
+  .canal-title { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+  .canal-freq { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 6px; }
+  .canal-body { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  .sem-comm-card { border-radius: 12px; border: 0.5px solid; margin-bottom: 1rem; overflow: hidden; }
+  .sem-comm-header { padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
+  .sem-comm-title { font-size: 13px; font-weight: 500; }
+  .sem-comm-urgence { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 10px; }
+  .sem-comm-body { padding: 0 14px 12px; }
+  .wave-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .wave-table th { padding: 5px 6px; text-align: left; font-weight: 500; color: var(--text-secondary); border-bottom: 0.5px solid var(--border); }
+  .wave-table td { padding: 5px 6px; border-bottom: 0.5px solid var(--border); vertical-align: top; line-height: 1.4; }
+  .wave-table tr:last-child td { border-bottom: none; }
+  .w-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }
+
+  .flux-card { background: var(--bg-secondary); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; border-left: 3px solid; }
+  .flux-title { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+  .flux-body { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+  hr { border: none; border-top: 0.5px solid var(--border); margin: 1.2rem 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1rem; }
+
+  .mini-list { list-style: none; }
+  .mini-list li { font-size: 12px; color: var(--text-secondary); padding: 4px 0; border-bottom: 0.5px solid var(--border); display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
+  .mini-list li::before { content: '→'; color: var(--vega-blue); font-size: 11px; flex-shrink: 0; margin-top: 2px; }
+  .mini-list li:last-child { border-bottom: none; }
+  .mini-list.coral li::before { color: var(--vega-coral); }
+
+  /* ===== RESPONSIVE MOBILE ===== */
+  @media (max-width: 700px) {
+    body { padding: 0; }
+    .wrapper { max-width: 100%; }
+    .doc { border-radius: 0; box-shadow: none; }
+
+    .header { padding: 1.5rem 1rem 1.2rem; }
+    .header h1 { font-size: 20px; }
+    .header-sub { font-size: 12px; }
+    .header-pill { font-size: 11px; padding: 3px 10px; }
+
+    .tabs { gap: 0; }
+    .tab { padding: 0.65rem 0.8rem; font-size: 12px; }
+
+    .panel { padding: 1rem; }
+
+    .section-title { font-size: 14px; }
+
+    /* Stat cards : 2 colonnes max sur mobile */
+    .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .stat-num { font-size: 22px; }
+    .stat-label { font-size: 10px; }
+
+    /* Axes : 1 colonne */
+    .axe-grid { grid-template-columns: 1fr; }
+    .axe-num { font-size: 24px; }
+
+    /* Colonnes -> 1 colonne */
+    .two-col { grid-template-columns: 1fr; }
+    .int-grid { grid-template-columns: 1fr; }
+    .canal-grid { grid-template-columns: 1fr; }
+
+    /* Calendrier : colonne mois plus étroite */
+    .cal-grid { grid-template-columns: 44px 1fr; }
+    .cal-month { font-size: 9px; padding: 8px 2px; letter-spacing: 0; }
+    .cal-event { font-size: 10px; padding: 2px 8px; white-space: normal; }
+
+    /* Badges */
+    .badge { font-size: 10px; padding: 2px 8px; }
+
+    /* Tableaux : scroll horizontal */
+    .card { overflow-x: auto; }
+    .wave-table { font-size: 10px; min-width: 380px; }
+    .wave-table th, .wave-table td { padding: 4px 5px; }
+    table { min-width: 360px; }
+
+    /* Séminaires */
+    .sem-loc { font-size: 16px; }
+    .sem-date { font-size: 11px; }
+
+    /* Intervenants */
+    .int-card { padding: 10px; }
+    .int-item { font-size: 11px; }
+
+    /* Progress bars */
+    .prog-label { font-size: 11px; }
+
+    /* Flux cards */
+    .flux-card { padding: 10px; }
+    .flux-title { font-size: 12px; }
+    .flux-body { font-size: 11px; }
+
+    /* Canaux */
+    .canal-card { padding: 0.85rem; }
+    .canal-title { font-size: 12px; }
+    .canal-body { font-size: 11px; }
+
+    /* Timeline */
+    .tl-title { font-size: 12px; }
+    .tl-desc { font-size: 11px; }
+
+    /* Checklist */
+    .checklist li { font-size: 11px; }
+
+    /* Mini list */
+    .mini-list li { font-size: 11px; }
+
+    /* Alert */
+    .alert { font-size: 11px; }
+    .alert-body strong { font-size: 11px; }
+
+    /* Project cards */
+    .project-card { padding: 0.9rem; }
+
+    /* Sem comm cards */
+    .sem-comm-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+    .sem-comm-body { overflow-x: auto; }
+
+    /* Header meta pills : scroll horizontal */
+    .header-meta { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+    .header-meta::-webkit-scrollbar { display: none; }
+    .header-pill { flex-shrink: 0; }
+  }
+
+  @media (max-width: 380px) {
+    .tab { padding: 0.55rem 0.6rem; font-size: 11px; }
+    .header h1 { font-size: 18px; }
+    .stat-num { font-size: 20px; }
+  }
+
+  /* Print */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .doc { box-shadow: none; border-radius: 0; }
+    .tabs { display: none; }
+    .panel { display: block !important; border-top: 2px solid var(--border); padding: 1.5rem 2rem; }
+    .panel::before { content: attr(data-title); font-family: 'Syne', Arial, sans-serif; font-size: 20px; font-weight: 700; display: block; margin-bottom: 1rem; color: var(--vega-blue); }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+<div class="doc">
+
+  <div class="header">
+    <div class="header-tag">Document stratégique confidentiel</div>
+    <h1>VEGA Formation<br>Stratégie 2026 – 2028</h1>
+    <div class="header-sub">Transformation du service · Intégration métier · Déploiement national</div>
+    <div class="header-meta">
+      <span class="header-pill">Kinésithérapeutes</span>
+      <span class="header-pill">Infirmiers</span>
+      <span class="header-pill">3 séminaires</span>
+      <span class="header-pill">Webinaires</span>
+      <span class="header-pill">FIFPL</span>
+      <span class="header-pill" style="background:rgba(59,109,17,0.25);">Biocides</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('orientation', this)">Orientations</button>
+    <button class="tab" onclick="showTab('intervenants', this)">Intervenants</button>
+    <button class="tab" onclick="showTab('seminaires', this)">Séminaires</button>
+    <button class="tab" onclick="showTab('calendrier', this)">Calendrier</button>
+    <button class="tab green-tab" onclick="showTab('projets', this)">Projets ✦</button>
+    <button class="tab" onclick="showTab('marketing', this)">Marketing</button>
+    <button class="tab comm-tab" onclick="showTab('communication', this)">Communication ✦</button>
+  </div>
+
+  <!-- ORIENTATIONS -->
+  <div id="tab-orientation" class="panel active" data-title="Orientations stratégiques">
+    <div class="section-title">Chiffres clés du recrutement</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-num blue">155</div><div class="stat-label">Candidatures Kinés</div></div>
+      <div class="stat-card"><div class="stat-num teal">65</div><div class="stat-label">Candidatures Infis</div></div>
+      <div class="stat-card"><div class="stat-num amber">11</div><div class="stat-label">Kinés entretiens 2026</div></div>
+      <div class="stat-card"><div class="stat-num coral">14</div><div class="stat-label">Infis entretiens 2026</div></div>
+    </div>
+    <div class="section-title">Axes stratégiques 2026–2028</div>
+    <div class="axe-grid">
+      <div class="axe-card blue"><div class="axe-num blue">01</div><div class="axe-title blue">Intégration métier</div><div class="axe-body">Passer d'une formation purement logicielle à une formation combinant maîtrise du logiciel VEGA et expertise métier (clinique, facturation, réglementation).</div></div>
+      <div class="axe-card teal"><div class="axe-num teal">02</div><div class="axe-title teal">Réseau d'experts terrain</div><div class="axe-body">Constituer un vivier d'intervenants praticiens (kinés, infis) sélectionnés, formés et labellisés VEGA pour animer les sessions métier.</div></div>
+      <div class="axe-card amber"><div class="axe-num amber">03</div><div class="axe-title amber">Formats multi-canal</div><div class="axe-body">Déployer trois formats complémentaires : séminaires, séminaires régionaux, webinaires thématiques 15 min.</div></div>
+      <div class="axe-card purple"><div class="axe-num purple">04</div><div class="axe-title purple">Gestion financière IDEL</div><div class="axe-body">Créer une verticale Compta IDEL dédiée : facturation électronique, cotisations sociales, trésorerie — en webinaires et demi-journées séminaire.</div></div>
+    </div>
+    <div class="section-title">Phases de déploiement</div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot blue"></div><div class="tl-date">2026 — Phase 1 : Lancement</div><div class="tl-title">Activation du réseau & 3 séminaires</div><div class="tl-desc">25 entretiens intervenants, Crown Plaza Montpellier 17–19/06, La Réunion, Chili Patagonie 27/11–11/12, 4 webinaires Compta IDEL, réponse FIFPL avant le 25/09, lancement certification Biocides.</div></div>
+      <div class="tl-item"><div class="tl-dot teal"></div><div class="tl-date">2027 — Phase 2 : Consolidation</div><div class="tl-title">Montée en charge des viviers</div><div class="tl-desc">Traitement des 56 kinés et 26 infis en attente. Extension du catalogue. Nouveaux séminaires régionaux.</div></div>
+      <div class="tl-item"><div class="tl-dot amber"></div><div class="tl-date">2028 — Phase 3 : Maturité</div><div class="tl-title">Autonomie & scalabilité</div><div class="tl-desc">Catalogue complet, certification intervenants VEGA, académie en ligne, partnerships institutionnels.</div></div>
+    </div>
+  </div>
+
+  <!-- INTERVENANTS -->
+  <div id="tab-intervenants" class="panel" data-title="Intervenants">
+    <div class="section-title">Pipeline de recrutement intervenants</div>
+    <div class="two-col">
+      <div class="card" style="border-left: 3px solid var(--vega-blue);">
+        <div style="margin-bottom:8px;"><span class="badge badge-blue">Kinésithérapeutes</span></div>
+        <div class="prog-row"><div class="prog-label"><span>Candidatures reçues</span><span class="blue" style="font-weight:500">155</span></div><div class="prog-bar"><div class="prog-fill" style="width:100%;background:var(--vega-blue)"></div></div></div>
+        <div class="prog-row"><div class="prog-label"><span>Fiches retenues</span><span class="blue" style="font-weight:500">67</span></div><div class="prog-bar"><div class="prog-fill" style="width:43%;background:var(--vega-blue)"></div></div></div>
+        <div class="prog-row"><div class="prog-label"><span>Entretiens 2026</span><span class="blue" style="font-weight:500">11</span></div><div class="prog-bar"><div class="prog-fill" style="width:7%;background:#378ADD"></div></div></div>
+        <div class="prog-row" style="margin-bottom:0;"><div class="prog-label"><span>Vivier 2027+</span><span style="font-weight:500;color:var(--text-secondary)">56</span></div><div class="prog-bar"><div class="prog-fill" style="width:36%;background:#B5D4F4"></div></div></div>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--vega-teal);">
+        <div style="margin-bottom:8px;"><span class="badge badge-teal">Infirmiers</span></div>
+        <div class="prog-row"><div class="prog-label"><span>Candidatures reçues</span><span class="teal" style="font-weight:500">65</span></div><div class="prog-bar"><div class="prog-fill" style="width:100%;background:var(--vega-teal)"></div></div></div>
+        <div class="prog-row"><div class="prog-label"><span>Fiches retenues</span><span class="teal" style="font-weight:500">40</span></div><div class="prog-bar"><div class="prog-fill" style="width:62%;background:var(--vega-teal)"></div></div></div>
+        <div class="prog-row"><div class="prog-label"><span>Entretiens 2026</span><span class="teal" style="font-weight:500">14</span></div><div class="prog-bar"><div class="prog-fill" style="width:22%;background:#1D9E75"></div></div></div>
+        <div class="prog-row" style="margin-bottom:0;"><div class="prog-label"><span>Vivier 2027+</span><span style="font-weight:500;color:var(--text-secondary)">26</span></div><div class="prog-bar"><div class="prog-fill" style="width:40%;background:#9FE1CB"></div></div></div>
+      </div>
+    </div>
+    <div class="section-title">Intervenants identifiés 2026</div>
+    <div class="int-grid">
+      <div class="int-card">
+        <div class="int-type">Kinésithérapeutes — Crown Plaza</div>
+        <div class="int-item">Teisseire (SNKR)</div>
+        <div class="int-item">Azema Stéphane</div>
+        <div class="int-item">Guillaume Mathé</div>
+        <div class="int-item">Tournon Julien</div>
+        <div class="int-item" style="color:var(--text-secondary);font-style:italic">Mateos Murielle ou Bourfoune Abderrahim</div>
+      </div>
+      <div class="int-card">
+        <div class="int-type">Infirmiers — Crown Plaza</div>
+        <div class="int-item">Plaies et cicatrisation (7h)</div>
+        <div class="int-item" style="color:var(--text-secondary);font-style:italic">Certificat de décès / NGAP (à arbitrer)</div>
+        <div style="margin-top:8px;" class="int-type">Kinés — La Réunion</div>
+        <div class="int-item">M. Fritsch : Entorse de cheville</div>
+        <div style="margin-top:8px;" class="int-type">Biocides — IDEL</div>
+        <div class="int-item">Mme Bru</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SÉMINAIRES -->
+  <div id="tab-seminaires" class="panel" data-title="Séminaires 2026">
+    <div class="section-title">3 séminaires au programme 2026</div>
+    <div class="sem-card" style="background:var(--vega-blue-light);border-color:#B5D4F4;">
+      <div class="sem-loc blue">Crown Plaza — Montpellier</div>
+      <div class="sem-date">17 juin → 19 juin 2026 · 3 jours / 2 nuits</div>
+      <div style="font-size:12px;line-height:1.7;">
+        <strong>Jour 1 (17/06) :</strong> Conférences + visite Montpellier + 4h formation VEGA · Demi-journée Compta IDEL<br>
+        <strong>Jour 2 (18/06) :</strong> 2 intervenants Kinés + 2 intervenants Infis (7h plaies/cicatrisation)<br>
+        <strong>Jour 3 (19/06) :</strong> Demi-journée Compta IDEL (cotisations, URSSAF, trésorerie)
+      </div>
+      <div class="sem-row"><span class="badge badge-blue">Kinés</span><span class="badge badge-teal">Infis</span><span class="badge badge-amber">Compta IDEL ×2</span><span class="badge badge-purple">Formation VEGA</span></div>
+    </div>
+    <div class="sem-card" style="background:var(--vega-amber-light);border-color:#FAC775;">
+      <div class="sem-loc amber">La Réunion</div>
+      <div class="sem-date">40 places · Métropolitains : 7j/6n + 2 jours formation · Réunionnais : 2 jours formation</div>
+      <div style="font-size:12px;line-height:1.7;margin-top:6px;">
+        <strong>Jour 1 :</strong> VEGA — 2 salles parallèles Infis / Kinés<br>
+        <strong>Jour 2 :</strong> Fritsch (entorse de cheville) + Infis : thème à confirmer
+      </div>
+      <div class="sem-row"><span class="badge badge-amber">40 places</span><span class="badge badge-blue">Kinés</span><span class="badge badge-teal">Infis</span><span class="badge badge-teal">Hébergement inclus</span></div>
+    </div>
+    <div class="sem-card" style="background:var(--vega-purple-light);border-color:#CECBF6;">
+      <div class="sem-loc purple">Chili — Patagonie</div>
+      <div class="sem-date">27 novembre → 11 décembre 2026 · 32 clients + 2 VEGA</div>
+      <div class="sem-row"><span class="badge badge-purple">32 participants</span><span class="badge badge-blue">Séminaire international</span></div>
+    </div>
+  </div>
+
+  <!-- CALENDRIER -->
+  <div id="tab-calendrier" class="panel" data-title="Calendrier 2026">
+    <div class="section-title">Planning opérationnel 2026</div>
+    <div class="cal-grid">
+      <div class="cal-month">Mars</div>
+      <div class="cal-events">
+        <span class="cal-event badge-coral" style="font-weight:600;">LANCEMENT COMM séminaires — dès maintenant</span>
+        <span class="cal-event badge-blue">Réunion 24/03 — Webinaires Compta</span>
+        <span class="cal-event badge-purple">Recrutement intervenants</span>
+      </div>
+      <div class="cal-month">Avril</div>
+      <div class="cal-events">
+        <span class="cal-event badge-coral">Vague comm #2 — tous canaux</span>
+        <span class="cal-event badge-blue">Entretiens 11 Kinés</span>
+        <span class="cal-event badge-teal">Entretiens 14 Infis</span>
+        <span class="cal-event badge-green">Constitution équipes de travail</span>
+      </div>
+      <div class="cal-month">Mai</div>
+      <div class="cal-events">
+        <span class="cal-event badge-coral">Vague comm #3 — inscriptions ouvertes</span>
+        <span class="cal-event badge-green">Dossier Mme Bru — CV + fiche péda</span>
+        <span class="cal-event badge-blue">Webinaire Compta #1</span>
+        <span class="cal-event badge-purple">Teasing Chili — lancement comm</span>
+      </div>
+      <div class="cal-month">Juin</div>
+      <div class="cal-events">
+        <span class="cal-event badge-amber" style="font-weight:600;">Crown Plaza Montpellier 17–19/06</span>
+        <span class="cal-event badge-blue">Webinaire Compta #2</span>
+        <span class="cal-event badge-green">Portail Cerbère — dossier Biocides</span>
+        <span class="cal-event badge-purple">Ouverture inscriptions Chili</span>
+      </div>
+      <div class="cal-month">Juil–Août</div>
+      <div class="cal-events">
+        <span class="cal-event badge-purple">Webinaires métier — lancement</span>
+        <span class="cal-event badge-blue">Webinaire Compta #3</span>
+        <span class="cal-event badge-green">Thèmes FIFPL — travaux équipes</span>
+        <span class="cal-event badge-amber">Teasing Réunion — lancement comm</span>
+      </div>
+      <div class="cal-month">Septembre</div>
+      <div class="cal-events">
+        <span class="cal-event badge-coral" style="font-weight:600;">FIFPL — date limite 25/09</span>
+        <span class="cal-event badge-blue">Webinaire Compta #4</span>
+        <span class="cal-event badge-amber">Relance Réunion + Chili</span>
+      </div>
+      <div class="cal-month">Oct–Nov</div>
+      <div class="cal-events">
+        <span class="cal-event badge-amber">Séminaire La Réunion</span>
+        <span class="cal-event badge-purple" style="font-weight:600;">Chili dès 27/11</span>
+      </div>
+      <div class="cal-month">Déc</div>
+      <div class="cal-events">
+        <span class="cal-event badge-purple">Chili Patagonie → 11/12</span>
+        <span class="cal-event badge-blue">Bilan 2026 + plan 2027</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJETS -->
+  <div id="tab-projets" class="panel" data-title="Projets à venir">
+    <div class="section-title green">Projets en cours de déploiement</div>
+    <div class="project-card" style="background:var(--vega-blue-light);border-color:#B5D4F4;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+        <div style="font-family:'Syne',Arial,sans-serif;font-size:15px;font-weight:700;color:#0C447C;">Constitution des équipes de travail par profession</div>
+        <span class="badge badge-blue">En cours</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;line-height:1.6;">Équipes distinctes par profession (Kinés / Infis) chargées de co-construire les programmes métier avec VEGA, en lien direct avec les thèmes FIFPL.</div>
+      <ul class="checklist">
+        <li><span class="check-box done">✓</span><span>Mailing interne envoyé — candidatures reçues</span></li>
+        <li><span class="check-box done">✓</span><span>Sélection des fiches (67 kinés / 40 infis retenues)</span></li>
+        <li><span class="check-box todo"></span><span>Conduire les 25 entretiens — S1 2026</span></li>
+        <li><span class="check-box todo"></span><span>Constituer les équipes par profession après validation</span></li>
+        <li><span class="check-box todo"></span><span>Définir les thèmes de chaque équipe en lien avec FIFPL</span></li>
+        <li><span class="check-box todo"></span><span>Planifier les réunions de travail par équipe</span></li>
+      </ul>
+    </div>
+    <div class="project-card" style="background:var(--vega-amber-light);border-color:#FAC775;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+        <div style="font-family:'Syne',Arial,sans-serif;font-size:15px;font-weight:700;color:#633806;">Appels d'offres FIFPL — Thèmes par profession</div>
+        <span class="badge badge-amber">Échéance 25/09/2026</span>
+      </div>
+      <div class="alert urgent"><div class="alert-icon">⚠</div><div class="alert-body"><strong>Date limite : 25 septembre 2026 au plus tard</strong>Dossiers à rédiger et valider avant fin août 2026.</div></div>
+      <ul class="checklist">
+        <li><span class="check-box todo"></span><span>Consulter les thèmes prioritaires FIFPL 2026 par profession</span></li>
+        <li><span class="check-box todo"></span><span>Aligner les thèmes des équipes avec les critères FIFPL</span></li>
+        <li><span class="check-box todo"></span><span>Rédiger les dossiers de réponse — avant fin août 2026</span></li>
+        <li><span class="check-box todo"></span><span>Déposer les dossiers avant le 25/09/2026</span></li>
+        <li><span class="check-box todo"></span><span>Suivi administratif et pédagogique post-accord</span></li>
+      </ul>
+    </div>
+    <div class="project-card" style="background:var(--vega-green-light);border-color:#C0DD97;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+        <div style="font-family:'Syne',Arial,sans-serif;font-size:15px;font-weight:700;color:#27500A;">Formation Biocides — IDEL · Mme Bru</div>
+        <span class="badge badge-green">Montage en cours</span>
+      </div>
+      <div class="alert info"><div class="alert-icon">ℹ</div><div class="alert-body"><strong>Certification centre Biocides en cours</strong>Dossier soumis via le portail Cerbère.</div></div>
+      <ul class="checklist">
+        <li><span class="check-box todo"></span><span>CV de Mme Bru — à récupérer et valider</span></li>
+        <li><span class="check-box todo"></span><span>Fiche pédagogique Biocides — à rédiger avec Mme Bru</span></li>
+        <li><span class="check-box todo"></span><span>Support de cours complet — à produire</span></li>
+        <li><span class="check-box todo"></span><span>Dossier portail Cerbère — à compléter et soumettre</span></li>
+        <li><span class="check-box todo"></span><span>Obtenir la reconnaissance centre certifié Biocides</span></li>
+        <li><span class="check-box todo"></span><span>Intégrer au catalogue VEGA après certification</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MARKETING -->
+  <div id="tab-marketing" class="panel" data-title="Marketing">
+    <div class="section-title">Positionnement stratégique</div>
+    <div class="card" style="border-left: 3px solid var(--vega-blue);">
+      <div style="font-size:13px;font-weight:500;margin-bottom:6px;">VEGA : de l'éditeur logiciel au partenaire de la vie libérale</div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">Accompagnateur global du praticien libéral — compétences cliniques, administratives et financières. Financement via FIFPL.</div>
+    </div>
+    <div class="section-title">Offre de formation — matrice</div>
+    <div class="card">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead><tr style="border-bottom:0.5px solid var(--border);">
+          <th style="padding:6px 8px;text-align:left;color:var(--text-secondary);font-weight:500;">Format</th>
+          <th style="padding:6px 8px;text-align:left;color:var(--text-secondary);font-weight:500;">Durée</th>
+          <th style="padding:6px 8px;text-align:left;color:var(--text-secondary);font-weight:500;">Cible</th>
+          <th style="padding:6px 8px;text-align:left;color:var(--text-secondary);font-weight:500;">Financement</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:0.5px solid var(--border);"><td style="padding:7px 8px;font-weight:500;">Séminaire international</td><td style="padding:7px 8px;">10–15 jours</td><td style="padding:7px 8px;"><span class="badge badge-purple">Premium</span></td><td style="padding:7px 8px;color:var(--text-secondary);">FIFPL possible</td></tr>
+          <tr style="border-bottom:0.5px solid var(--border);"><td style="padding:7px 8px;font-weight:500;">Séminaire régional</td><td style="padding:7px 8px;">3j/2n</td><td style="padding:7px 8px;"><span class="badge badge-blue">Kinés + Infis</span></td><td style="padding:7px 8px;color:var(--text-secondary);">FIFPL possible</td></tr>
+          <tr style="border-bottom:0.5px solid var(--border);"><td style="padding:7px 8px;font-weight:500;">Webinaire métier</td><td style="padding:7px 8px;">15 min</td><td style="padding:7px 8px;"><span class="badge badge-teal">Tous profils</span></td><td style="padding:7px 8px;color:var(--text-secondary);">Gratuit / inclus</td></tr>
+          <tr style="border-bottom:0.5px solid var(--border);"><td style="padding:7px 8px;font-weight:500;">Webinaire Compta IDEL</td><td style="padding:7px 8px;">15 min</td><td style="padding:7px 8px;"><span class="badge badge-amber">IDEL</span></td><td style="padding:7px 8px;color:var(--text-secondary);">Gratuit / inclus</td></tr>
+          <tr><td style="padding:7px 8px;font-weight:500;">Formation Biocides</td><td style="padding:7px 8px;">À définir</td><td style="padding:7px 8px;"><span class="badge badge-green">IDEL</span></td><td style="padding:7px 8px;color:var(--text-secondary);">FIFPL — obligatoire</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section-title">KPIs à suivre</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-num blue">NPS</div><div class="stat-label">Satisfaction post-formation</div></div>
+      <div class="stat-card"><div class="stat-num teal">LTV</div><div class="stat-label">Fidélité client formé</div></div>
+      <div class="stat-card"><div class="stat-num amber">Taux<br>remplissage</div><div class="stat-label">Par séminaire</div></div>
+      <div class="stat-card"><div class="stat-num purple">Taux retour<br>webinaire</div><div class="stat-label">Sessions / invités</div></div>
+    </div>
+  </div>
+
+  <!-- COMMUNICATION -->
+  <div id="tab-communication" class="panel" data-title="Communication">
+    <div class="alert urgent" style="margin-bottom:1.5rem;">
+      <div class="alert-icon">⚠</div>
+      <div class="alert-body"><strong>Séminaires 2026 : communication à lancer DÈS MAINTENANT — mars 2026</strong>Les professionnels libéraux ont des agendas chargés et des remplaçants à trouver. 6 à 9 mois d'anticipation sont nécessaires. Chaque semaine sans communication est une inscription perdue.</div>
+    </div>
+    <div class="section-title coral">Stratégie multicanal — professionnels de santé</div>
+    <div class="canal-grid">
+      <div class="canal-card" style="background:var(--vega-blue-light);border-color:#B5D4F4;">
+        <div class="canal-icon">✉</div>
+        <div class="canal-title blue">Mailing VEGA</div>
+        <span class="canal-freq badge-blue">1× / 15 jours</span>
+        <div class="canal-body">Newsletter formation, annonces séminaires, rappels webinaires. Base clients segmentée par profession.</div>
+      </div>
+      <div class="canal-card" style="background:var(--vega-blue-light);border-color:#B5D4F4;">
+        <div class="canal-icon">⚡</div>
+        <div class="canal-title blue">Flux in-app VEGA</div>
+        <span class="canal-freq badge-blue">En continu</span>
+        <div class="canal-body">Bannières et notifications à chaque connexion au logiciel. 100% de la base clients, zéro intermédiaire.</div>
+      </div>
+      <div class="canal-card" style="background:var(--vega-teal-light);border-color:#9FE1CB;">
+        <div class="canal-icon">💬</div>
+        <div class="canal-title teal">SMS / WhatsApp</div>
+        <span class="canal-freq badge-teal">Événementiel</span>
+        <div class="canal-body">Ouverture inscriptions, places limitées, J-7 séminaire, J-1 webinaire. Taux de lecture quasi 100%.</div>
+      </div>
+      <div class="canal-card" style="background:var(--vega-purple-light);border-color:#CECBF6;">
+        <div class="canal-icon">in</div>
+        <div class="canal-title purple">LinkedIn</div>
+        <span class="canal-freq badge-purple">2× / semaine</span>
+        <div class="canal-body">Témoignages intervenants, photos séminaires, contenu pédagogique court, annonces formations.</div>
+      </div>
+      <div class="canal-card" style="background:var(--vega-purple-light);border-color:#CECBF6;">
+        <div class="canal-icon">📘</div>
+        <div class="canal-title purple">Groupes Facebook / forums</div>
+        <span class="canal-freq badge-purple">Hebdomadaire</span>
+        <div class="canal-body">Groupes Kinés libéraux, Infirmiers IDEL. Relais via intervenants ambassadeurs.</div>
+      </div>
+      <div class="canal-card" style="background:var(--vega-amber-light);border-color:#FAC775;">
+        <div class="canal-icon">🤝</div>
+        <div class="canal-title amber">Syndicats & ordres</div>
+        <span class="canal-freq badge-amber">Trimestriel</span>
+        <div class="canal-body">SNKR, FFMKR, FNI, UNIDEL. Relais dans leurs newsletters et communications internes.</div>
+      </div>
+    </div>
+    <div class="section-title coral">Flux in-app — messages logiciel</div>
+    <div class="flux-card" style="border-color:var(--vega-blue);"><div class="flux-title blue">Bannière connexion — annonce séminaire</div><div class="flux-body">Affichée à chaque connexion dès 6 mois avant l'événement. Visuel destination + date + bouton "Je m'inscris".</div></div>
+    <div class="flux-card" style="border-color:var(--vega-coral);"><div class="flux-title coral">Pastille urgence — places limitées</div><div class="flux-body">À partir de 70% de remplissage : badge "Plus que X places" dans le menu formation. Urgence naturelle.</div></div>
+    <div class="flux-card" style="border-color:var(--vega-teal);"><div class="flux-title teal">Notification webinaire — J-2 et J-1</div><div class="flux-body">Pop-up non-bloquant à la connexion : "Votre webinaire [thème] a lieu dans 2 jours." Rappel J-1 si pas cliqué.</div></div>
+    <div class="flux-card" style="border-color:var(--vega-amber);"><div class="flux-title amber">Message post-formation</div><div class="flux-body">Satisfaction 2 min + teasing prochain événement. Affiché à la prochaine connexion après le séminaire.</div></div>
+    <div class="section-title coral">Plan de vagues — 3 séminaires 2026</div>
+    <div class="sem-comm-card" style="background:var(--vega-blue-light);border-color:#B5D4F4;">
+      <div class="sem-comm-header" style="background:var(--vega-blue-light);"><div class="sem-comm-title blue">Crown Plaza Montpellier — 17/19 juin 2026</div><span class="sem-comm-urgence badge-coral">COMM À LANCER MAINTENANT</span></div>
+      <div class="sem-comm-body">
+        <table class="wave-table"><thead><tr><th>Quand</th><th>Vague</th><th>Canaux</th><th>Message</th></tr></thead><tbody>
+          <tr><td style="font-weight:500;white-space:nowrap;"><span class="w-dot" style="background:#E24B4A;"></span>Mars 2026</td><td>Teasing</td><td>Email + in-app + LinkedIn</td><td>Annonce, intervenants, programme</td></tr>
+          <tr><td style="font-weight:500;white-space:nowrap;"><span class="w-dot" style="background:#BA7517;"></span>Avril 2026</td><td>Ouverture</td><td>Email + SMS + in-app</td><td>Programme détaillé, ouverture inscriptions</td></tr>
+          <tr><td style="font-weight:500;white-space:nowrap;"><span class="w-dot" style="background:#1D9E75;"></span>Mai 2026</td><td>Relance</td><td>Email + Facebook + syndicats</td><td>Témoignage intervenant, places limitées</td></tr>
+          <tr><td style="font-weight:500;white-space:nowrap;"><span class="w-dot" style="background:#534AB7;"></span>Juin J-7</td><td>Rappel</td><td>SMS + in-app + Email</td><td>Infos pratiques, programme final</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+    <div class="sem-comm-card" style="background:var(--vega-amber-light);border-color:#FAC775;">
+      <div class="sem-comm-header" style="background:var(--vega-amber-light);"><div class="sem-comm-title amber">La Réunion — automne 2026</div><span class="sem-comm-urgence badge-amber">Démarrer juillet 2026</span></div>
+      <div class="sem-comm-body">
+        <table class="wave-table"><thead><tr><th>Quand</th><th>Vague</th><th>Canaux</th><th>Message</th></tr></thead><tbody>
+          <tr><td style="font-weight:500;"><span class="w-dot" style="background:#E24B4A;"></span>Juil 2026</td><td>Teasing</td><td>Email + in-app + LinkedIn</td><td>Destination, visuel fort, liste d'intérêt</td></tr>
+          <tr><td style="font-weight:500;"><span class="w-dot" style="background:#BA7517;"></span>Août 2026</td><td>Ouverture</td><td>Email + SMS + in-app</td><td>Programme, hébergement, inscriptions</td></tr>
+          <tr><td style="font-weight:500;"><span class="w-dot" style="background:#1D9E75;"></span>Sept 2026</td><td>Relance</td><td>Email + Facebook</td><td>Dernières places, témoignages</td></tr>
+          <tr><td style="font-weight:500;"><span class="w-dot" style="background:#534AB7;"></span>J-7</td><td>Rappel</td><td>SMS + in-app</td><td>Logistique, programme, contacts VEGA</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+    <div class="sem-comm-card" style="background:var(--vega-purple-light);border-color:#CECBF6;">
+      <div class="sem-comm-header" style="background:var(--vega-purple-light);"><div class="sem-comm-title purple">Chili Patagonie — 27 nov / 11 déc 2026</div><span class="sem-comm-urgence badge-purple">Démarrer mai 2026</span></div>
+      <div class="sem-comm-body">
+        <table class="wave-table"><thead><tr><th>Quand</th><th>Vague</th><th>Canaux</th><th>Message</th></tr></thead><tbody>
+          <tr><td style="font-weight:500;"><span class="w-dot" style="background:#E24B4A;"></span>Mai 2026</td><td>Teasing</td><td>Email + in-app + LinkedIn</td><td>Patagonie — l'expérience d'une carrière</td></tr>
+          <tr><td style="font-weight:500;"><span class="w-dot" style="background:#BA7517;"></span>Juin 2026</td><td>Ouverture</td><td>Email + SMS</td><td>Programme complet, tarif, inscriptions</td></tr>
+          <tr><td style="font-weight:500;"><span class="w-dot" style="background:#1D9E75;"></span>Sept 2026</td><td>Relance</td><td>Email + Facebook + syndicats</td><td>Urgence places, témoignages</td></tr>
+          <tr><td style="font-weight:500;"><span class="w-dot" style="background:#534AB7;"></span>Nov J-7</td><td>Rappel</td><td>SMS + in-app</td><td>Départ imminent — infos pratiques</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+    <hr>
+    <div class="section-title coral">Kit ambassadeurs — intervenants</div>
+    <ul class="mini-list coral">
+      <li>Chaque intervenant relaie les annonces auprès de son réseau personnel dès sa sélection.</li>
+      <li>Profil mis en avant dans tous les supports : photo, bio courte, thème — emails, in-app, LinkedIn.</li>
+      <li>Groupe WhatsApp "Formateurs VEGA" pour les mobiliser rapidement lors des relances.</li>
+      <li>Kit prêt à l'emploi fourni : visuels, texte court, lien direct — pour faciliter le partage immédiat.</li>
+    </ul>
+  </div>
+
+</div><!-- .doc -->
+</div><!-- .wrapper -->
+
+<script>
+function showTab(name, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
